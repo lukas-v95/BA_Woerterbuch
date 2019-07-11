@@ -1,0 +1,27 @@
+<div *ngIf="info.token; else loggedOut">
+  <div>
+      <h3 class="text-primary">Your Information</h3>
+      <table>
+        <tr>
+          <td><b>Username:</b></td>
+          <td class="wrap-container">{{info.username}}</td>
+        </tr>
+        <tr>
+          <td><b>Roles:</b></td>
+          <td class="wrap-container">{{info.authorities}}</td>
+        </tr>
+        <tr>
+          <td><b>Token:</b></td>
+          <td class="wrap-container">{{info.token}}</td>
+        </tr>
+      </table>
+  </div>
+</div>
+
+<ng-template #loggedOut>
+  <div class="container-home login-container">
+    <span>Bitte melde dich an </span>
+    <pre>  </pre>
+    <button class="login-form-btn" mat-raised-button color="primary" type="submit" routerLink="/auth/login">→</button>
+  </div>
+</ng-template>

@@ -1,0 +1,52 @@
+<div *ngIf="isLoggedIn; else loggedOut">
+  Logged in as {{roles}}.
+</div>
+
+<ng-template #loggedOut>
+  <div class="container-login">
+    <div class="wrap-login">
+        <div>
+            <img src="assets/login.png" alt="Login">
+        </div>
+        <div>
+            <div class="login-form">
+                <mat-card>
+                  <mat-card-content>
+                    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                      <h3>Please login to continue</h3>
+                      <mat-form-field class="full-width-input">                        
+                        <input class="input" matInput placeholder="User" formControlName="userName" required>
+                        <mat-error *ngIf="isFieldInvalid('userName')">
+                          Der Benutzername entspricht nicht den Mindestkriterien
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="full-width-input">
+                        <input class="input" matInput type="password" placeholder="Password" formControlName="password" required>
+                        <mat-error *ngIf="isFieldInvalid('userName')">
+                          Das Passwort entsprich nicht den Mindestanforderungen (mindestlänge: 6 Buchstaben)!
+                        </mat-error>
+                      </mat-form-field>
+                      <button class="login-form-btn" mat-raised-button color="primary" type="submit">Login</button>
+                      <!--<span *ngIf="loginSuccess" redirect></span> -->
+                    </form>
+                  </mat-card-content>
+                </mat-card>
+            </div>
+        
+            <div class="row col-sm-6" style="max-width:350px;">
+              <div class="form-group">
+                  <div *ngIf="submitted && isLoginFailed" class="alert alert-danger">
+                   <p> Benutzername/Passwort Kombination falsch! {{errorMessage}} </p>
+                  </div>
+                </div>
+              
+              <hr />
+              <div class="register-container">
+                <span>Du hast noch keinen Account?</span>
+                <button class="register-form-btn" mat-raised-button color="primary" type="submit" routerLink="/signup">→</button>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</ng-template>

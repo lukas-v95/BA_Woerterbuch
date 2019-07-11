@@ -1,0 +1,124 @@
+
+  <mat-toolbar>
+    <span>Klicke auf das Icon 'Referenz hinzufügen', um dem eben ausgewählten Eintrag eine Referenz ins Deutsche zuzuweisen!</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+
+<div>  
+  <div class="mat-elevation-z8">
+  <mat-table [dataSource]="germanListData" matSort>
+
+
+    <!-- <ng-container matColumnDef="german">
+    <mat-header-cell *matHeaderCellDef  mat-sort-header>Deutsch</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.german.germanEntry}} </mat-cell>
+  </ng-container>
+  -->
+
+    <!--<input type="hidden" formControlName="$key"> -->
+
+
+    <ng-container matColumnDef="germanEntry">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Deutscher Eintrag</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.german.germanEntry}}</mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="germanId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Deutsche Id's</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.german.germanId}}</mat-cell>
+      </ng-container>
+  
+
+    <ng-container matColumnDef="references">
+      <mat-header-cell *matHeaderCellDef>Querverweise zu anderen <br> Sprachen mit Ids</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <span *ngFor="
+            let item of element.german.reverseTranslations
+            let i = index;
+            let isLast = last
+          ">
+
+
+          {{item.reverseGerman2DialectLanguage}}: <!--printet nur die sprache--> 
+          <br>
+         <!-- <span *ngFor="let innerItem of item.reverseGerman2DialectIdList let j=index" >
+
+              {{item.reverseGerman2DialectIdList[0]}}
+          </span>
+          -->
+         {{item.reverseGerman2DialectIdList |json}}
+         <br>
+          
+
+          
+        
+          
+          <!-- beistrich + space bei allen elementen außer beim letzten! : -->
+        <!-- <span *ngIf="!isLast">,&nbsp;</span>-->
+        </span>
+      </mat-cell>
+    </ng-container>
+
+
+    <!-- <mat-header-cell *matHeaderCellDef>Synonyme adden</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <mat-checkbox>Check ME!</mat-checkbox>
+    </mat-cell>
+ -->
+
+
+ <ng-container matColumnDef="referenceIcons">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Referenzen <br>Hinzufügen / Löschen</mat-header-cell>
+
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-icon-button (click)="addGermanRef(row)">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="removeGermanRef(row)">
+        <mat-icon>remove</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  
+
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        Loading data...
+      </mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="noData">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        No data.
+      </mat-footer-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedGermanColums"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedGermanColums;"></mat-row>
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}">
+    </mat-footer-row>
+  </mat-table>
+
+
+  <mat-paginator [pageSizeOptions]="[ 5, 10, 20, 40]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div></div>
+
+
+
+<!-- ######################################################################################-->
+<!-- ######################################################################################-->
+<!-- ######################################################################################-->
+<!-- ######################################################################################-->
+
+
+<div> <!-- TODO: dialekt-liste wird nach klick eingeblendet! -->
+<!---->
+
+</div>

@@ -1,0 +1,52 @@
+<!--<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Uebersetzer</a>
+    </div>
+
+    -->
+<!--
+    <mat-toolbar color="primary">
+      <span>
+        Angular Header COmponent
+      </span>
+      <span class="fill-remaining-space"></span>
+      <button mat-button>Menu Option 01</button>
+      <button mat-button>Menu Option 02</button>
+      <button mat-button (click)="logout()">Logout</button>
+    </mat-toolbar>
+
+
+-->
+
+
+
+
+
+
+<mat-toolbar color="primary">
+  <span>
+    Dialektübersetzer
+  </span>
+  <span class="fill-remaining-space"></span>
+  <!--<button mat-raised-button color="primary" routerLink="/home">Inboxa</button>-->
+
+  <button mat-button routerLink="home">Home</button>
+  <button mat-button *ngIf="authority === 'user'" routerLink="/user">Suche ein Dialektwort</button>
+  <button mat-button *ngIf="authority === 'admin'" routerLink="/admin">Admin Sektor</button>
+  <button mat-button *ngIf="authority === 'fhEmp'" routerLink="/admin">Für FH Angestellte</button>
+  <button mat-button *ngIf="((authority === 'user') || (authority === 'admin') || (authority === 'fhEmp'))" (click)="logout()">Logout</button>
+
+
+
+
+  <button mat-button *ngIf="!authority" routerLink="auth/login">Login</button>
+
+  <!--<button mat-button (click)="onLogout()">Logout</button> -->
+</mat-toolbar>
+
+
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

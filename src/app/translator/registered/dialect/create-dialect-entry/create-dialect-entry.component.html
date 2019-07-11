@@ -1,0 +1,58 @@
+<mat-toolbar>
+  <span>Erstelle eine neuen Eintrag!</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<!-- service.form zeigt auf das zugehörige .ts file. dieses initialisiert im konstuktor den richtigen service.-->
+<form [formGroup]="service.formCreateDialect" class="normal-form" (submit)="onSubmit()">
+
+  <mat-grid-list class="mat-grid-list-custom" cols="1">
+
+    <div class="controles-container">
+      <input type="hidden" formControlName="$key">
+
+      <mat-form-field>
+        <mat-select formControlName="language" placeholder="Dialektsprache">
+          <mat-option>None</mat-option>
+          <ng-container *ngFor="let language of availableLanguages">
+            <mat-option [value]="language">{{language}}</mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input formControlName="dialectEntry" matInput placeholder="Dialekt Eintrag*">
+        <mat-error>This field is mandatory.</mat-error>
+      </mat-form-field>
+
+      <mat-selection-list formControlName="partOfSpeech" #wortarten>
+        <p>Wähle die entspechenden Wortarten aus:</p>
+        <mat-list-option *ngFor="let element of displayedPartOfSpeechs; let i = index" [value]='partOfSpeechs[i]'>
+          {{element}}
+        </mat-list-option>
+      </mat-selection-list>
+
+      <p>
+        Options selected: {{wortarten.selectedOptions.selected.length}}
+      </p>
+
+      <mat-selection-list formControlName="linguisticUsage" #sprachgebrauch
+        >
+        <p>
+          Wähle die entspechenden Sprachgebräuche aus:
+        </p>
+        <mat-list-option *ngFor="let element of displayedLinguisticUsages; let j = index" [value]='linguisticUsages[j]'>
+          {{element}}
+        </mat-list-option>
+      </mat-selection-list>
+
+      <div class="button-row">
+        <button mat-raised-button color="primary" type="submit" [disabled]="service.formCreateDialect.invalid">Submit</button>
+        <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+      </div>
+    </div>
+  </mat-grid-list>
+</form>

@@ -1,0 +1,13 @@
+<p>
+  unregistered-container works!
+</p>
+<h1>Data from Home Containercomponent:
+    <!--{{ selectedLanguage}} , {{ searchRequest}} --> </h1>
+  <!-- <start-page></start-page> -->
+  <!--  Die notifiy methoden müssen mit den Outputdeklaration der komponenten search-bar-component.ts übereinstimmen. -->
+  <app-unregistered-search (notifySearchPressed)="handleSearchRequest($event)" ></app-unregistered-search>
+  <!-- <http-table-unauthorized></http-table-unauthorized>-->
+  
+  
+ <!-- <app-employee-list></app-employee-list> -->
+  <app-unregistered-search-result [childMessage]="parentMessage" ></app-unregistered-search-result>

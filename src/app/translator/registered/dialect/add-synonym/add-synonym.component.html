@@ -1,0 +1,121 @@
+<mat-dialog-content>
+  <mat-toolbar>
+    <span>Klicke auf das Icon 'Synonym hinzufügen', um dem eben ausgewählten Eintrag ein Synonym zuzuweisen!</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+
+
+
+  <div class="mat-elevation-z8">
+    <mat-table [dataSource]="listData" matSort>
+
+
+      <!-- <ng-container matColumnDef="german">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Deutsch</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.german.germanEntry}} </mat-cell>
+    </ng-container>
+    -->
+
+      <!--<input type="hidden" formControlName="$key"> -->
+
+
+      <ng-container matColumnDef="dialectEntry">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Dialekteintrag</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.dialect.dialectEntry}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="partOfSpeech">
+        <mat-header-cell *matHeaderCellDef>Wortart</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span *ngFor="
+          let item of element.dialect.partOfSpeech.partOfSpeechs;
+          let i = index;
+          let isLast = last
+        ">
+            {{ item }}
+            <!-- beistrich + space bei allen elementen außer beim letzten! : -->
+            <span *ngIf="!isLast">,&nbsp;</span>
+          </span></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="linguisticUsage">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Sprachgebrauch</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span *ngFor="
+          let item of element.dialect.linguisticUsage.linguisticUsages;
+          let i = index;
+          let isLast = last
+        ">
+            {{ item }}
+            <!-- beistrich + space bei allen elementen außer beim letzten! : -->
+            <span *ngIf="!isLast">,&nbsp;</span>
+          </span></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="synonyms">
+        <mat-header-cell *matHeaderCellDef>Synonyme</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span *ngFor="
+              let item of element.dialect.synonymObjectList;
+              let i = index;
+              let isLast = last
+            ">
+            <!--{{item.entryId}} --> {{ item.entryName}}
+            <!-- beistrich + space bei allen elementen außer beim letzten! : -->
+            <span *ngIf="!isLast">,&nbsp;</span>
+          </span>
+        </mat-cell>
+      </ng-container>
+
+
+      <!-- <mat-header-cell *matHeaderCellDef>Synonyme adden</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-checkbox>Check ME!</mat-checkbox>
+      </mat-cell>
+   -->
+
+
+
+
+      <ng-container matColumnDef="synonymsCB">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Synonyme<br>Hinzufügen / Löschen</mat-header-cell>
+
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button (click)="addSynonym(row)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+
+
+
+    
+
+      <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          Loading data...
+        </mat-footer-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          No data.
+        </mat-footer-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+      <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}">
+      </mat-footer-row>
+    </mat-table>
+
+
+    <mat-paginator [pageSizeOptions]="[ 5, 10, 20, 40]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+  </div>
+</mat-dialog-content>

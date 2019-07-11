@@ -1,0 +1,184 @@
+<div class="container" *ngIf="!post; else forminfo" novalidate>
+  
+  
+      <!-- alles muss in dieses form tag rein!: -->
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form">
+  
+  
+  
+          <mat-form-field>
+              <mat-select placeholder="Dialekt 1" matInput formControlName="languageControl1" required>
+                  <mat-option *ngFor="let lang1 of availableLanguages" [value]="lang1">
+                      {{ lang1 }}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+  
+  
+  
+          <mat-form-field>
+              <mat-select placeholder="Dialekt 2" matInput formControlName="languageControl2" required>
+                  <mat-option *ngFor="let lang2 of availableLanguages" [value]="lang2">
+                      {{ lang2 }}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+  
+          <br>
+          <div class="test">
+              <mat-form-field class="form-element">
+                  <input matInput placeholder="Suchbegriff" formControlName="searchString">
+                  <mat-error *ngIf="!searchString.valid">{{ titleAlert }}</mat-error>
+                  <!-- <mat-error *ngIf="!name.valid && name.touched"> 
+                {{ titleAlert }}
+              </mat-error> -->
+              </mat-form-field>
+              <div class="form-element">
+                  <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">
+                      Suche
+                  </button>
+              </div>
+          </div>
+      </form>
+  </div>
+  
+  
+  <ng-template #forminfo>
+      <!--<div class="container">{{ post | json }}</div> -->
+  </ng-template>
+
+
+
+
+
+  <!-- new code: -->
+  
+<div class="mat-elevation-z8">
+    <mat-table [dataSource]="listData" matSort>
+      <ng-container matColumnDef="searched">
+        <!-- fullName sollte im Array namens displayedColums sein. -->
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Dialekt A
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.dialectA.dialectEntry }} gesuchtes Wort
+        </mat-cell>
+        <!-- <mat-cell *matCellDef="let element2">{{element["myNewRoot"]["dialectB"]["dialectEntry"]|json}}</mat-cell> -->
+      </ng-container>
+  
+      <!-- neue spalte: -->
+      <ng-container matColumnDef="german">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Deutsch
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">{{
+          element.german.germanEntry
+        }}</mat-cell>
+      </ng-container>
+  
+      <!-- neue spalte: -->
+      <ng-container matColumnDef="dialectEntry">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Dialekt B
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">{{
+          element.dialectB.dialectEntry
+        }}</mat-cell>
+      </ng-container>
+  
+      <!-- neue spalte: -->
+      <ng-container matColumnDef="partOfSpeech">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Wortart
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span
+            *ngFor="
+              let item of element.dialectB.partOfSpeech.partOfSpeechs;
+              let i = index;
+              let isLast = last
+            "
+          >
+            {{ item }}
+            <!-- beistrich + space bei allen elementen außer beim letzten! : -->
+            <span *ngIf="!isLast">,&nbsp;</span>
+          </span>
+        </mat-cell>
+      </ng-container>
+  
+      <!-- neue spalte: -->
+      <ng-container matColumnDef="linguisticUsage">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Sprachgebrauch
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span
+            *ngFor="
+              let item of element.dialectB.linguisticUsage.linguisticUsages;
+              let i = index;
+              let isLast = last
+            "
+          >
+            {{ item }}
+            <!-- beistrich + space bei allen elementen außer beim letzten! : -->
+            <span *ngIf="!isLast">,&nbsp;</span>
+          </span>
+        </mat-cell>
+      </ng-container>
+  
+      <!-- neue spalte: -->
+      <ng-container matColumnDef="synonyms">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Synonyme
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span
+            *ngFor="
+              let item of element.dialectB.synonymObjectList;
+              let i = index;
+              let isLast = last
+            "
+          >
+             <!--{{item.entryId}} --> {{ item.entryName}}
+            <!-- beistrich + space bei allen elementen außer beim letzten! : -->
+            <span *ngIf="!isLast">,&nbsp;</span>
+          </span>
+        </mat-cell>
+      </ng-container>
+  
+  
+      <!-- ng container: -->
+      <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          Loading data...
+        </mat-footer-cell>
+      </ng-container>
+  
+      <!-- ng container: -->
+      <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          No data.
+        </mat-footer-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      <!-- loading screen -->
+      <mat-footer-row
+        *matFooterRowDef="['loading']"
+        [ngClass]="{ hide: listData != null }"
+      ></mat-footer-row>
+      <mat-footer-row
+        *matFooterRowDef="['noData']"
+        [ngClass]="{ hide: !(listData != null && listData.data.length == 0) }"
+      ></mat-footer-row>
+      <!-- <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(true == false)}"></mat-footer-row> -->
+    </mat-table>
+  
+    <mat-paginator
+      [pageSizeOptions]="[1, 3, 5, 10]"
+      [pageSize]="5"
+    ></mat-paginator>
+
+  </div>
+  

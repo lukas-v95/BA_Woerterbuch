@@ -1,0 +1,196 @@
+
+<!--
+    <mat-chip-list aria-label="Fish selection">
+
+      <mat-chip color="primary" selected>Primary fish</mat-chip>
+      <mat-chip color="primary" selected>Primary fish</mat-chip>
+
+    </mat-chip-list>
+    -->
+
+<!--
+  <mat-form-field class="search-form-field" floatLabel="never">
+    <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+-->
+
+<!--
+<button mat-raised-button (click)="openTestWindow()">
+    <mat-icon>add</mat-icon>OPEN TESTWINDOW!!
+  </button>
+-->
+
+<div [formGroup]="service.myLanguagesGroup">
+  <mat-form-field class="gap">
+    <mat-select formControlName="languages" [(ngModel)]="selectedLanguage" placeholder="Dialektsprache"
+      (selectionChange)="fetchDialectData()">
+      <mat-option>None</mat-option>
+      <ng-container *ngFor="let language of availableLanguages">
+        <mat-option [value]="language">{{language}}</mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+
+<!--
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle (click)="onCreateDialectEntry()">Dialekteintrag erstellen</mat-button-toggle>
+      <mat-button-toggle (click)="onCreateDialectLanguage()">Dialektsprache erstellen</mat-button-toggle>
+    </mat-button-toggle-group>
+    -->
+
+  <button class="gap" mat-raised-button (click)="onCreateDialectEntry()">
+    <mat-icon>add</mat-icon>Dialekteintrag erstellen
+  </button>
+  <button class="gap" mat-raised-button (click)="onCreateDialectLanguage()">
+    <mat-icon>add</mat-icon>Dialektspache erstellen
+  </button>
+</div>
+
+
+
+<div *ngIf="this.showTableContent">
+
+  <div class="search-div">
+    <mat-form-field class="search-form-field" floatLabel="never">
+      <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()" />
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <div class="mat-elevation-z8">
+    <mat-table [dataSource]="listData" matSort>
+
+
+      <ng-container matColumnDef="dialectEntry">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Dialekteintrag</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.dialect.dialectEntry}}</mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="dialectId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Dialekt Id</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.dialect.dialectId}}</mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="partOfSpeech">
+        <mat-header-cell *matHeaderCellDef>Wortart</mat-header-cell>
+        <mat-cell style="display:block" *matCellDef="let element">
+
+          <span style="display:block" *ngFor="
+            let item of element.dialect.partOfSpeech.partOfSpeechs;
+            last as isLast
+          ">
+            {{ item }}
+            <!-- beistrich + space bei allen elementen außer beim letzten! : -->
+         <!--   <span *ngIf="!isLast">,&nbsp;</span> -->
+          </span>
+        </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="linguisticUsage">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Sprachgebrauch</mat-header-cell>
+        <mat-cell style="display:block" *matCellDef="let element">
+          <span style="display:block" *ngFor="
+            let item of element.dialect.linguisticUsage.linguisticUsages;
+            let i = index;
+            let isLast = last
+          ">
+            {{ item }}
+            <!-- beistrich + space bei allen elementen außer beim letzten! : -->
+           <!-- <span *ngIf="!isLast">,&nbsp;</span> -->
+          </span></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="synonyms">
+        <mat-header-cell *matHeaderCellDef>Synonyme</mat-header-cell>
+        <mat-cell style="display:block" *matCellDef="let element">
+          <span style="display:block" *ngFor="
+                let item of element.dialect.synonymObjectList;
+                let i = index;
+                let isLast = last
+              ">
+              {{ item.entryName}}
+            <!-- beistrich + space bei allen elementen außer beim letzten! : -->
+            <!--<span *ngIf="!isLast">,&nbsp;</span>-->
+          </span>
+        </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="synonymsCB">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Synonyme<br>Hinzufügen / Löschen</mat-header-cell>
+
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button (click)="addSynonym(row)">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="removeSynonym(row)">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="germanRef">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Deutschreferenz / <br> Deutschübersetzung</mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+          <span  *ngIf="element.dialect.refToGermanId">Id: {{element.dialect.refToGermanId}} <br> Name:
+          {{element.dialect.germanEntry}}</span> </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="modifyReferences">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Deutsch Referenz<br>Hinzufügen / Löschen</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button (click)="addGermanRef(row)">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="removeGermanRef(row)">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button (click)="onEdit(row)">
+            <mat-icon>launch</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="onDelete(row)">
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          Loading data...
+        </mat-footer-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          No data.
+        </mat-footer-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+      <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}">
+      </mat-footer-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[ 5, 10, 20, 40]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+  </div>
+
