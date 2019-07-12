@@ -12,6 +12,7 @@ import { ILanguage } from "./language";
 import { Dialect } from "./dialect";
 import { Headers, RequestOptions } from "@angular/http";
 import { NotificationService } from "./notification.service";
+import { URIHelper } from '../../uri-helper';
 
 @Injectable({
   providedIn: "root"
@@ -157,7 +158,7 @@ console.log("synonymData: ", jsonData.dialect.synonymObjectList);
     let params = new HttpParams()
       .set("language", language)
       .set("id", id);
-    return this.http.delete("http://localhost:8090/dialect/deleteEntryById", {
+    return this.http.delete(URIHelper.getBaseUrl() + "dialect/deleteEntryById", {
       params: params
     }).toPromise()
       .then((data: any) => {
@@ -199,7 +200,7 @@ console.log("synonymData: ", jsonData.dialect.synonymObjectList);
   // get request. working
   getLanguages(): Observable<ILanguage[]> {
     return this.http.get<ILanguage[]>(
-      "http://localhost:8090/german/getAllLanguages"
+      URIHelper.getBaseUrl() + "german/getAllLanguages"
     );
   }
 
@@ -215,7 +216,7 @@ console.log("synonymData: ", jsonData.dialect.synonymObjectList);
       .set("searchCriteria", paramValueSearchCriteria);
 
     return this.http
-      .get<Entry[]>("http://localhost:8090/dialect/getCompleteEntryList", {
+      .get<Entry[]>(URIHelper.getBaseUrl() + "dialect/getCompleteEntryList", {
         params: params
       })
       .pipe(
@@ -232,7 +233,7 @@ console.log("synonymData: ", jsonData.dialect.synonymObjectList);
       .set("language", dialectLanguage);
 
     return this.http
-      .get<Dialect[]>("http://localhost:8090/dialect/getAllDialectEntries", {
+      .get<Dialect[]>(URIHelper.getBaseUrl() + "dialect/getAllDialectEntries", {
         params: params
       })
       .pipe(
@@ -268,7 +269,7 @@ console.log("synonymData: ", jsonData.dialect.synonymObjectList);
 
     let params = new HttpParams().set("dialectLanguage", newEntry.language);
     this.http
-      .post("http://localhost:8090/dialect/createDialectEntry", postData, {
+      .post(URIHelper.getBaseUrl() + "dialect/createDialectEntry", postData, {
         params: params
       })
       .toPromise()

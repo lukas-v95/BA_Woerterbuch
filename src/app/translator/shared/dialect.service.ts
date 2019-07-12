@@ -15,6 +15,7 @@ import { Dialect } from "./dialect";
 import { German } from "../shared/german";
 import { Headers, RequestOptions } from "@angular/http";
 import { NotificationService } from "./notification.service";
+import { URIHelper } from '../../../uri-helper';
 
 @Injectable({
   providedIn: "root"
@@ -68,7 +69,7 @@ export class DialectService {
 
     let params = new HttpParams().set("dialectLanguage", newEntry.language);
     this.http
-      .post("http://localhost:8080/dialect/createDialectEntry", postData, {
+      .post(URIHelper.getBaseUrl() + "dialect/createDialectEntry", postData, {
         params: params
       })
       .toPromise()
@@ -252,7 +253,7 @@ export class DialectService {
     let params = new HttpParams()
       .set("language", language)
       .set("id", id);
-    return this.http.delete("http://localhost:8080/dialect/deleteEntryById", {
+    return this.http.delete(URIHelper.getBaseUrl() + "dialect/deleteEntryById", {
       params: params
     }).toPromise()
       .then((data: any) => {
@@ -274,7 +275,7 @@ export class DialectService {
   // get request. working
   getLanguages(): Observable<ILanguage[]> {
     return this.http.get<ILanguage[]>(
-      "http://localhost:8080/german/getAllLanguages"
+      URIHelper.getBaseUrl() + "german/getAllLanguages"
     );
   }
 
@@ -290,7 +291,7 @@ export class DialectService {
       .set("searchCriteria", paramValueSearchCriteria);
 
     return this.http
-      .get<Entry[]>("http://localhost:8080/dialect/getCompleteEntryList", {
+      .get<Entry[]>(URIHelper.getBaseUrl() + "dialect/getCompleteEntryList", {
         params: params
       })
       .pipe(
@@ -307,7 +308,7 @@ export class DialectService {
       .set("language", dialectLanguage);
 
     return this.http
-      .get<Dialect[]>("http://localhost:8080/dialect/getAllDialectEntries", {
+      .get<Dialect[]>(URIHelper.getBaseUrl() + "dialect/getAllDialectEntries", {
         params: params
       })
       .pipe(
@@ -329,7 +330,7 @@ export class DialectService {
 
 
     this.http
-      .post("http://localhost:8080/dialect/addBidirectionalSynonyms", null, {
+      .post(URIHelper.getBaseUrl() + "dialect/addBidirectionalSynonyms", null, {
         params: params1
       })
       .toPromise()
@@ -380,7 +381,7 @@ export class DialectService {
       .set("germanId", germanId);
 
     this.http
-      .post("http://localhost:8080/dialect/addBiDirectionalRef", null, {
+      .post(URIHelper.getBaseUrl() + "dialect/addBiDirectionalRef", null, {
         params: params
       })
       .toPromise()
@@ -407,7 +408,7 @@ export class DialectService {
       .set("germanId", germanId);
 
     this.http
-      .post("http://localhost:8080/dialect/addReferencesCompleteSet", null, {
+      .post(URIHelper.getBaseUrl() + "dialect/addReferencesCompleteSet", null, {
         params: params
       })
       .toPromise()
@@ -422,7 +423,7 @@ export class DialectService {
     let params = new HttpParams()
 
     return this.http
-      .get<German[]>("http://localhost:8080/german/getAllGermanEntries")
+      .get<German[]>(URIHelper.getBaseUrl() + "german/getAllGermanEntries")
       .pipe(
         map((entries: German[]) => entries.map(germanEntries => new German(germanEntries)))
       );
@@ -435,7 +436,7 @@ export class DialectService {
       .set("id1", id1)
       .set("id2", id2);
 
-    return this.http.delete("http://localhost:8080/dialect/removeBidirectionalSynonyms", {
+    return this.http.delete(URIHelper.getBaseUrl() + "dialect/removeBidirectionalSynonyms", {
       params: params
     }).toPromise()
       .then((data: any) => {
@@ -451,7 +452,7 @@ export class DialectService {
       .set("dialectCollection", language)
       .set("dialectId", id);
 
-    return this.http.delete("http://localhost:8080/dialect/deleteGermanRefFromDialect", {
+    return this.http.delete(URIHelper.getBaseUrl() + "dialect/deleteGermanRefFromDialect", {
       params: params
     }).toPromise()
       .then((data: any) => {
@@ -463,7 +464,7 @@ export class DialectService {
   }
 
   editDialectData(language, requestBody) {
-    //"http://localhost:8080/dialect/updateDialectEntry     dialectLanguage     body
+    //URIHelper.getBaseUrl() + "dialect/updateDialectEntry     dialectLanguage     body
 
 
     let postData = {
@@ -508,7 +509,7 @@ export class DialectService {
     let params = new HttpParams()
       .set("dialectLanguage", language);
 
-    this.http.put("http://localhost:8080/dialect/updateDialectEntry", postData, {
+    this.http.put(URIHelper.getBaseUrl() + "dialect/updateDialectEntry", postData, {
       params: params
     }).toPromise()
       .then((data: any) => {
@@ -527,7 +528,7 @@ export class DialectService {
 
     let params = new HttpParams().set("language", languageName);
     this.http
-      .post("http://localhost:8080/dialect/createDialectLanguage", null, {
+      .post(URIHelper.getBaseUrl() + "dialect/createDialectLanguage", null, {
         params: params
       })
       .toPromise()

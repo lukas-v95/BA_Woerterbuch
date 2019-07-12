@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { German } from './german';
 import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 import { NotificationService } from './notification.service';
+import { URIHelper } from '../../../uri-helper';
 
 
 
@@ -56,7 +57,7 @@ export class GermanServiceService {
         dialectLanguage
       ): Observable<German[]> {
         return this.http
-          .get<German[]>("http://localhost:8080/german/getAllGermanEntries")
+          .get<German[]>(URIHelper.getBaseUrl() + "german/getAllGermanEntries")
           .pipe(
             map((entries: German[]) => entries.map(germanEntries => new German(germanEntries)))
           );
@@ -66,7 +67,7 @@ export class GermanServiceService {
   // get request. working
   getAllGermanEntries(): Observable<German[]> {
     return this.http.get<German[]>(
-      "http://localhost:8080/german/getAllGermanEntries"
+      URIHelper.getBaseUrl() + "german/getAllGermanEntries"
     );
   }
 
@@ -84,7 +85,7 @@ export class GermanServiceService {
       .set("germanId", updatedGermanEntry.germanId)
       .set("germanEntry", updatedGermanEntry.germanEntry);
 
-    this.http.put("http://localhost:8080/german/updateGermanEntryById", null, {
+    this.http.put(URIHelper.getBaseUrl() + "german/updateGermanEntryById", null, {
       params: params
     }).toPromise()
       .then((data: any) => {
@@ -129,7 +130,7 @@ export class GermanServiceService {
   deleteGermanEntry(id: string) {
     let params = new HttpParams()
       .set("id", id);
-    return this.http.delete("http://localhost:8080/german/deleteEntryById", {
+    return this.http.delete(URIHelper.getBaseUrl() + "german/deleteEntryById", {
       params: params
     }).toPromise()
       .then((data: any) => {
@@ -149,7 +150,7 @@ export class GermanServiceService {
     };
 
     this.http
-      .post("http://localhost:8080/german/createGermanEntry", postData, {
+      .post(URIHelper.getBaseUrl() + "german/createGermanEntry", postData, {
       })
       .toPromise()
       .then((data: any) => {

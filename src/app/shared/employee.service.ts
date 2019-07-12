@@ -10,6 +10,7 @@ import { Entry, PartOfSpeech, LinguisticUsage } from "./entry";
 import { ILanguage } from "./language";
 import { Dialect } from "./dialect";
 import { Headers, RequestOptions } from "@angular/http";
+import { URIHelper } from '../../uri-helper';
 
 @Injectable({
   providedIn: "root"
@@ -75,7 +76,7 @@ export class EmployeeService {
   // get request. working
   getLanguages(): Observable<ILanguage[]> {
     return this.http.get<ILanguage[]>(
-      "http://localhost:8090/german/getAllLanguages"
+      URIHelper.getBaseUrl() + "german/getAllLanguages"
     );
   }
 
@@ -91,7 +92,7 @@ export class EmployeeService {
       .set("searchCriteria", paramValueSearchCriteria);
 
     return this.http
-      .get<Entry[]>("http://localhost:8090/dialect/getCompleteEntryList", {
+      .get<Entry[]>(URIHelper.getBaseUrl() + "dialect/getCompleteEntryList", {
         params: params
       })
       .pipe(
@@ -123,7 +124,7 @@ export class EmployeeService {
 
     let params = new HttpParams().set("dialectLanguage", newEntry.language);
     this.http
-      .post("http://localhost:8090/dialect/createDialectEntry", postData, {
+      .post(URIHelper.getBaseUrl() + "dialect/createDialectEntry", postData, {
         params: params
       })
       .toPromise()
