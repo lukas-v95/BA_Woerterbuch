@@ -69,12 +69,15 @@ export class EditGermanEntryComponent implements OnInit {
   }
 
   onClear() {
-    this.service.clearGermanForm();
+    this.service.germanEntryForm.reset();
+    this.service.initGermanForm();
   }
 
   onSubmit() {
+    console.log("submitted german entry!")
     if (this.service.germanEntryForm.valid) { // ! löschen!
       this.updatedEntryName = this.service.germanEntryForm.value.germanEntry;
+      console.log(this.updatedEntryName, "updated entry <----")
       this.updateData();
       this.service.updateEntry(this.previousEntryData);
       this.updatePreviousViewCallback();

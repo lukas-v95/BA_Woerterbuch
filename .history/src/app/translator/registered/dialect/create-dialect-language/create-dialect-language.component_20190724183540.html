@@ -1,0 +1,39 @@
+<mat-toolbar>
+  <span>Erstelle eine neue Dialektsprache!</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-form-field class="search-form-field" floatLabel="never">
+  <input matInput (keyup)="applyFilter($event.target.value)" #myInput [(ngModel)]='userInput' autocomplete="off"
+    placeholder="Überprüfe, ob eine Sprache bereits existiert / klicke auf Sprache erstellen.">
+</mat-form-field>
+
+<div class="button-row">
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!buttonActive">
+    Neue Sprache erstellen
+  </button>
+  <button mat-raised-button color="warn" (click)="onClear()">
+    Clear
+  </button>
+</div>
+
+<div class="example-container mat-elevation-z8">
+
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="language">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Language
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

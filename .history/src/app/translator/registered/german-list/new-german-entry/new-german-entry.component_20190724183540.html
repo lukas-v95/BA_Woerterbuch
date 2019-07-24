@@ -1,7 +1,7 @@
 <form [formGroup]="service.germanEntryForm" class="normal-form" (submit)="onSubmit()">
   <mat-toolbar>
     <span>
-      Hier können Sie den bestehenden Eintrag bearbeiten!
+      Erstellen Sie einen neuen Eintrag!
     </span>
     <span class="fill-remaining-space"></span>
     <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
@@ -13,16 +13,18 @@
     <input type="hidden">
 
     <mat-form-field>
-      <input formControlName="germanId" matInput placeholder="Deutsch Eintrag-ID">
+      <input formControlName="germanId" matInput placeholder="German Id">
       <mat-error>This field is mandatory.</mat-error>
     </mat-form-field>
 
    
     <mat-form-field>
-      <input formControlName="germanEntry" matInput placeholder="Deutscheintrag*">
+      <input formControlName="germanEntry" matInput placeholder="Deutscher Eintrag*">
       <mat-error>This field is mandatory.</mat-error>
     </mat-form-field>
 
+
+  
 
     <div class="button-row">
       <button mat-raised-button color="primary" type="submit" [disabled]="service.germanEntryForm.invalid">
@@ -35,3 +37,6 @@
 
   </div>
 </form>
+
+
+<!---->

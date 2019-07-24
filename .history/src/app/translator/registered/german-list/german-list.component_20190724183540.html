@@ -14,17 +14,17 @@
 <div class="mat-elevation-z8">
   <mat-table [dataSource]="listData" matSort>
     <ng-container matColumnDef="germanEntry">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Deutscheintrag</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>German</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{ element.germanEntry }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="germanId">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Deutsch Eintrag-ID</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>German ID</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.germanId }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="references">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Referenzen zu Dialekteinträgen</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>References to other Languages</mat-header-cell>
       <mat-cell style="display:block" *matCellDef="let element">
         <span *ngFor="
             let item of element.reverseTranslations;">
@@ -41,7 +41,7 @@
     </ng-container>
 
     <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef>Eintrag bearbeiten / löschen</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
         <button mat-icon-button (click)="onEdit(row)">
           <mat-icon>launch</mat-icon>

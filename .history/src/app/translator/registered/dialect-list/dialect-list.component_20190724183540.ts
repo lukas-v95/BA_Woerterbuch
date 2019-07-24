@@ -224,29 +224,31 @@ export class DialectListComponent implements OnInit {
   }
 
   getAllDialectEntries() {
-    console.log("Bin in getallentreis")
     this.service.getAllDialectEntries(this.selectedLanguage)
       .subscribe((resp: Dialect[]) => {
 
         this.currentViewData = resp;
-        console.log("--> list Data Dialekt:", this.currentViewData);
+        console.log("--> list Data Dialkt:", this.currentViewData)
         this.listData = new MatTableDataSource<Dialect>(this.currentViewData);
 
 
-        // filter:
-        this.listData.sort = this.sort;
-        this.listData.filterPredicate = (data, filter) => {
-          const dataStr = data.dialect.dialectEntry + data.dialect.dialectId + data.dialect.refToGermanId;
-          return dataStr.indexOf(filter) !== -1;
-        };
+        // new filter code:
 
-        // enable sorting:
-        // Sorting ascending/descending on icon click:
+
+        // -- end filter end
+        this.listData.sort = this.sort;
+        
+        this.listData.filterPredicate = (data, filter) => {
+          const dataStr = data.dialect.dialectEntry + data.dialect.dialectId + data.dialect.refToGermanId  /*+ data.details.symbol + data.details.weight*/;
+          return dataStr.indexOf(filter) != -1; 
+        }
+
+        // enable sorting
+        // TODO:
+        console.warn("TODO: enable sorting in all components!")
         this.listData.sortingDataAccessor = (item, property) => {
           if (property === 'dialectEntry') {
             return item.dialect.dialectEntry;
-          } else if (property === 'dialectId') {
-            return item.dialect.dialectId;
           } else if (property === 'synonym') {
             return item.dialect.synonymObjectList.entryName;
           } else {
@@ -260,7 +262,7 @@ export class DialectListComponent implements OnInit {
 
   applyFilter() {
     console.log("called apply filter")
-    this.listData.filter = this.searchKey.trim(); // this.searchKey.trim().toLowerCase()
+    this.listData.filter = this.searchKey.trim().toLowerCase();
   }
 
   addSynonym(entry) {

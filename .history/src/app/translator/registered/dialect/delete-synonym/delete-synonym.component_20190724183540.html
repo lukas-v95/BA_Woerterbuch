@@ -1,0 +1,23 @@
+<mat-toolbar>
+    <span>Wähle ein Synonym aus der Liste aus und klicke auf löschen.</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <mat-form-field>
+      <mat-label>Wähle das zu löschende Synonym</mat-label>
+      <mat-select [(ngModel)]="selectedSynonym" (selectionChange)="updateChange()" placeholder="Placeholder">
+          <ng-container *ngFor="let selectedSynonym of allSynonyms">
+              <mat-option [value]="selectedSynonym">{{selectedSynonym.entryName}}</mat-option>
+            </ng-container>
+      </mat-select>
+    </mat-form-field>
+
+    
+
+    <div class="button-row">
+        <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!stateChanged">Lösche Synonym</button>
+        <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+      </div>

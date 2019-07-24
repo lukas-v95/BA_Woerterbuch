@@ -1,6 +1,6 @@
 
   <mat-toolbar>
-    <span>Klicke auf das Icon 'Referenz hinzufügen', um dem eben ausgewählten Dialekteintrag eine Referenz ins Deutsche zuzuweisen!</span>
+    <span>Klicke auf das Icon 'Referenz hinzufügen', um dem eben ausgewählten Eintrag eine Referenz ins Deutsche zuzuweisen!</span>
     <span class="fill-remaining-space"></span>
     <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
       <mat-icon>clear</mat-icon>
@@ -28,7 +28,7 @@
 
 
     <ng-container matColumnDef="germanId">
-        <mat-header-cell *matHeaderCellDef>Deutsche Id's</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Deutsche Id's</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.german.germanId}}</mat-cell>
       </ng-container>
   
@@ -72,14 +72,16 @@
 
 
  <ng-container matColumnDef="referenceIcons">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Referenz auf eben <br> ausgewählten Eintrag <br>Hinzufügen</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Referenzen <br>Hinzufügen / Löschen</mat-header-cell>
 
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell *matCellDef="let row">
       <button mat-icon-button (click)="addGermanRef(row)">
         <mat-icon>add</mat-icon>
       </button>
-     
+      <button mat-icon-button color="warn" (click)="removeGermanRef(row)">
+        <mat-icon>remove</mat-icon>
+      </button>
     </mat-cell>
   </ng-container>
 

@@ -42,7 +42,7 @@
       </ng-container>
 
       <ng-container matColumnDef="linguisticUsage">
-        <mat-header-cell *matHeaderCellDef>Sprachgebrauch</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Sprachgebrauch</mat-header-cell>
         <mat-cell *matCellDef="let element">
           <span *ngFor="
           let item of element.dialect.linguisticUsage.linguisticUsages;

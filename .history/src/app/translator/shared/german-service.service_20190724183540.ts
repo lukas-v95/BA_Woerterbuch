@@ -42,13 +42,6 @@ export class GermanServiceService {
     console.log("after setgermanform")
   }
 
-  clearGermanForm(){
-    this.germanEntryForm.patchValue({
-      germanEntry: "",
-    });
-  }
-
-
   /*populateForm(employee) {
     // für was ist das?
     this.germanEntryForm.setValue(_.omit(employee, "departmentName"));

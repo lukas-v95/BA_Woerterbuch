@@ -1,3 +1,4 @@
+
 <!--
     <mat-chip-list aria-label="Fish selection">
 
@@ -33,15 +34,25 @@
     </mat-select>
   </mat-form-field>
 
+<!--
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle (click)="onCreateDialectEntry()">Dialekteintrag erstellen</mat-button-toggle>
+      <mat-button-toggle (click)="onCreateDialectLanguage()">Dialektsprache erstellen</mat-button-toggle>
+    </mat-button-toggle-group>
+    -->
+
   <button class="gap" mat-raised-button (click)="onCreateDialectEntry()">
     <mat-icon>add</mat-icon>Dialekteintrag erstellen
   </button>
   <button class="gap" mat-raised-button (click)="onCreateDialectLanguage()">
-    <mat-icon>add</mat-icon>Dialektsprache erstellen
+    <mat-icon>add</mat-icon>Dialektspache erstellen
   </button>
 </div>
 
+
+
 <div *ngIf="this.showTableContent">
+
   <div class="search-div">
     <mat-form-field class="search-form-field" floatLabel="never">
       <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()" />
@@ -77,14 +88,14 @@
           ">
             {{ item }}
             <!-- beistrich + space bei allen elementen außer beim letzten! : -->
-            <!--   <span *ngIf="!isLast">,&nbsp;</span> -->
+         <!--   <span *ngIf="!isLast">,&nbsp;</span> -->
           </span>
         </mat-cell>
       </ng-container>
 
 
       <ng-container matColumnDef="linguisticUsage">
-        <mat-header-cell *matHeaderCellDef>Sprachgebrauch</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Sprachgebrauch</mat-header-cell>
         <mat-cell style="display:block" *matCellDef="let element">
           <span style="display:block" *ngFor="
             let item of element.dialect.linguisticUsage.linguisticUsages;
@@ -93,7 +104,7 @@
           ">
             {{ item }}
             <!-- beistrich + space bei allen elementen außer beim letzten! : -->
-            <!-- <span *ngIf="!isLast">,&nbsp;</span> -->
+           <!-- <span *ngIf="!isLast">,&nbsp;</span> -->
           </span></mat-cell>
       </ng-container>
 
@@ -105,7 +116,7 @@
                 let i = index;
                 let isLast = last
               ">
-            {{ item.entryName}}
+              {{ item.entryName}}
             <!-- beistrich + space bei allen elementen außer beim letzten! : -->
             <!--<span *ngIf="!isLast">,&nbsp;</span>-->
           </span>
@@ -114,7 +125,7 @@
 
 
       <ng-container matColumnDef="synonymsCB">
-        <mat-header-cell *matHeaderCellDef>Synonyme<br>Hinzufügen / Löschen</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Synonyme<br>Hinzufügen / Löschen</mat-header-cell>
 
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let row">
@@ -130,14 +141,14 @@
 
       <ng-container matColumnDef="germanRef">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Deutschreferenz / <br> Deutschübersetzung</mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <span *ngIf="element.dialect.refToGermanId">Id: {{element.dialect.refToGermanId}} <br> Name:
-            {{element.dialect.germanEntry}}</span> </mat-cell>
+        <mat-cell *matCellDef="let element"> 
+          <span  *ngIf="element.dialect.refToGermanId">Id: {{element.dialect.refToGermanId}} <br> Name:
+          {{element.dialect.germanEntry}}</span> </mat-cell>
       </ng-container>
 
 
       <ng-container matColumnDef="modifyReferences">
-        <mat-header-cell *matHeaderCellDef>Deutsch Referenz<br>Hinzufügen / Löschen</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Deutsch Referenz<br>Hinzufügen / Löschen</mat-header-cell>
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let row">
           <button mat-icon-button (click)="addGermanRef(row)">
@@ -150,7 +161,7 @@
       </ng-container>
 
       <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef>Eintrag bearbeiten / löschen</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let row">
           <button mat-icon-button (click)="onEdit(row)">
             <mat-icon>launch</mat-icon>
@@ -182,3 +193,4 @@
 
     <mat-paginator [pageSizeOptions]="[ 5, 10, 20, 40]" [pageSize]="5" showFirstLastButtons></mat-paginator>
   </div>
+
