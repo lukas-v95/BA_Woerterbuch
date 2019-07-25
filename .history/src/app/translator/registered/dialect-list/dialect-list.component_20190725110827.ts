@@ -85,6 +85,8 @@ export class DialectListComponent implements OnInit {
 
 
   onCreateDialectEntry() {
+    console.log("from on Create.")
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -97,6 +99,7 @@ export class DialectListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe( () => {
+      console.log("refreshing view...")
       this.ngOnInit();
     });
   }
@@ -213,10 +216,12 @@ export class DialectListComponent implements OnInit {
   }
 
   getAllDialectEntries() {
+    console.log("Bin in getallentreis")
     this.service.getAllDialectEntries(this.selectedLanguage)
       .subscribe((resp: Dialect[]) => {
 
         this.currentViewData = resp;
+        console.log("--> list Data Dialekt:", this.currentViewData);
         this.listData = new MatTableDataSource<Dialect>(this.currentViewData);
 
 
@@ -246,6 +251,7 @@ export class DialectListComponent implements OnInit {
   }
 
   applyFilter() {
+    console.log("called apply filter")
     this.listData.filter = this.searchKey.trim(); // this.searchKey.trim().toLowerCase()
   }
 
@@ -290,6 +296,8 @@ export class DialectListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe( () => {
+      console.log("refreshing table")
+      //this.ngOnInit();
       this.getAllDialectEntries();
 
     });

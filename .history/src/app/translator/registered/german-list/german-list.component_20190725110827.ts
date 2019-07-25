@@ -35,6 +35,7 @@ export class GermanListComponent implements OnInit {
   ngOnInit() {
     this.service.getAllGermanEntries()
       .subscribe((resp: German[]) => {
+        console.log(resp);
         this.currentViewData = resp;
         this.listData = new MatTableDataSource<German>(this.currentViewData);
         this.listData.sort = this.sort;

@@ -23,6 +23,7 @@ import { CreateDialectLanguageComponent } from './translator/registered/dialect/
 import { GermanListComponent } from './translator/registered/german-list/german-list.component';
 import { NewGermanEntryComponent } from './translator/registered/german-list/new-german-entry/new-german-entry.component';
 import { EditGermanEntryComponent } from './translator/registered/german-list/edit-german-entry/edit-german-entry.component';
+import { UnregisteredSearchResultComponent } from './translator/unregistered-search-result/unregistered-search-result.component';
 import { UnregisteredSearchComponent } from './translator/unregistered-search/unregistered-search.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './jwt-authentification/login/login.component';
@@ -52,7 +53,10 @@ import { httpInterceptorProviders } from './jwt-authentification/auth/auth-inter
     GermanListComponent,
     NewGermanEntryComponent,
     EditGermanEntryComponent,
+
     UnregisteredSearchComponent,
+    UnregisteredSearchResultComponent,
+
     LoginComponent,
     UserComponent,
     RegisterComponent,

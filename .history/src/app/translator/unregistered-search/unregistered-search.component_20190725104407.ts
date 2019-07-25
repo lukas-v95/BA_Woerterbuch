@@ -11,6 +11,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./unregistered-search.component.css']
 })
 export class UnregisteredSearchComponent implements OnInit {
+ // @Input() languages = { tester: String }
+ // @Output() notifySearchPressed: EventEmitter<FormInformation> = new EventEmitter<FormInformation>();
 
   formGroup: FormGroup;
   titleAlert = 'This field is required';
@@ -44,8 +46,10 @@ export class UnregisteredSearchComponent implements OnInit {
       'languageControl1': ["", Validators.required],
       'languageControl2': ["", Validators.required],
       'searchString': ["", Validators.required],
+      // 'validate': ''
     });
   }
+
 
   get searchString() {
     return this.formGroup.get('searchString');
@@ -93,15 +97,32 @@ export class UnregisteredSearchComponent implements OnInit {
       .subscribe((data: {}) => this.availableLanguages = data);
       console.log(this.availableLanguages)
   }
+  /*
+   // same as above:
+    performRestGetLanguages() {
+      this.userService.getLanguages()
+        .subscribe(data => this.availableLanguages = data);
+    }
+  */
 
 
- checkDifferentOptions(option) {
-  if(this.formGroup.get('languageControl1').value === this.formGroup.get('languageControl2').value) {
+ checkDifferentOptions(option){
+   console.log(option);
+  if(this.formGroup.get('languageControl1').value === this.formGroup.get('languageControl2').value){
     this.difOptions = false;
   } else {
     this.difOptions = true;
   }
+
  }
+
+
+ onCreate(){
+   console.error("TO implement!!")
+ }
+
+
+
 }
 
 export interface FormInformation {
