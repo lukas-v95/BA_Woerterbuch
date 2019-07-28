@@ -17,7 +17,7 @@ div.container{
 
 .controles-container{
     width: 100%;
-        
+    padding: 5%;    
 }
 
 .controles-container > * {
@@ -25,7 +25,7 @@ div.container{
     }
 
     .add-bottom-padding{
-        padding-bottom: 8 px;
+        padding-bottom: 10px;
     }
     /* radio group */
 mat-radio-group mat-radio-button{

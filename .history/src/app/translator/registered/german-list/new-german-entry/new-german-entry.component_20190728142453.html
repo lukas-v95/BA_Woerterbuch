@@ -1,15 +1,14 @@
 <form [formGroup]="service.germanEntryForm" class="normal-form" (submit)="onSubmit()">
-    <div class="controles-container">
-
   <mat-toolbar>
     <span>Erstellen Sie einen neuen Eintrag!</span>
-    <span class="fill-remaining-space"></span>
+   <!-- <span class="fill-remaining-space"></span>-->
     <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
       <mat-icon>clear</mat-icon>
     </button>
   </mat-toolbar>
 
 
+  <div class="controles-container">
     <input type="hidden">
 
     <mat-form-field>

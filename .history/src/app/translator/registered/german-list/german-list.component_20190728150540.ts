@@ -77,7 +77,7 @@ export class GermanListComponent implements OnInit {
     let dialogRef = this.dialog.open(NewGermanEntryComponent, {
      // maxWidth: '70vw',
       //maxHeight: '70vh',
-      height: '48%',
+      height: '40%',
       width: '70%',
      
       data: {
@@ -101,9 +101,9 @@ export class GermanListComponent implements OnInit {
     // dialogConfig.width = "60%";
 
     let dialogRef = this.dialog.open(EditGermanEntryComponent, {
-     /* maxWidth: '70vw',
-      maxHeight: '70vh',*/
-      height: '35%',
+      maxWidth: '70vw',
+      maxHeight: '70vh',
+      height: '70%',
       width: '70%',
       data: {
         selectedLanguage: this.selectedLanguage,

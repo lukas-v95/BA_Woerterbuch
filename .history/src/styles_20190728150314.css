@@ -19,15 +19,16 @@ div.container{
     width: 100%;
         
 }
-
+/*
 .controles-container > * {
     width: 100%;
     }
 
     .add-bottom-padding{
-        padding-bottom: 8 px;
+        padding-bottom: 10px;
     }
     /* radio group */
+    
 mat-radio-group mat-radio-button{
     margin-left: 5px;
 }
