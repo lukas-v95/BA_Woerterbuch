@@ -1,9 +1,11 @@
-<div class="german-search-div">
+<div class="search-div">
   <button mat-raised-button (click)="onCreate()">
     <mat-icon>add</mat-icon>Erstelle deutschen Eintrag
   </button>
-  <mat-form-field class="german-search-form-field" floatLabel="never">
+  <mat-form-field class="search-form-field" floatLabel="never">
+    <div class='searchBar'>
     <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()" />
+  </div>
     <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
       <mat-icon>close</mat-icon>
     </button>
