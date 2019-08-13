@@ -19,6 +19,8 @@ export class CreateDialectLanguageComponent implements OnInit {
   dataSource: MatTableDataSource<ILanguage>;
   buttonActive = false;
   userInput;
+
+  // neu:
   searchKey;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

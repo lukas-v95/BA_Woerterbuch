@@ -57,8 +57,9 @@ export class DialectListComponent implements OnInit {
 
   ngOnInit() {
     this.fetchLanguages();
-    // this.populateForm();
-    // this.createFormInputs();
+    //this.populateForm();
+    //this.createFormInputs();
+
   }
 
 
@@ -245,10 +246,15 @@ export class DialectListComponent implements OnInit {
         this.listData.paginator = this.paginator;
       });
   }
-
+  
   applyFilter() {
     this.searchKeyLowerCase = this.searchKey.trim().toLowerCase();
     this.listData.filter = this.searchKeyLowerCase;
+/*
+
+    this.searchKey = this.searchKey.trim().toLowerCase();
+    this.listData.filter = this.searchKey.trim(); // this.searchKey.trim().toLowerCase()
+    */
   }
 
 
